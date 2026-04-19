@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PVAM Student Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+header {
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+}
+
+.logo-img {
+  height: 40px;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+header nav a.active,
+header nav a:hover {
+  color: var(--white);
+}
+
+.search-box input {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+    :root {
+      --purple: #4b0082;
+      --gold: #c8a940;
+      --gold-light: #e8c84a;
+      --white: #ffffff;
+      --bg: #f5f2ec;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+      --table-header-bg: #f0ece0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 64px;
+      gap: 0;
+    }
+
+    .nav-logo {
+      background: var(--gold);
+      color: var(--purple);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      margin-right: 28px;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+      flex: 1;
+    }
+
+    .nav-links li { position: relative; }
+
+    .nav-links li:not(:last-child)::after {
+      content: '|';
+      color: var(--gold);
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-links a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 8px 20px;
+      display: block;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      height: 34px;
+    }
+
+    .nav-search input {
+      border: none;
+      outline: none;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      width: 180px;
+      font-family: inherit;
+    }
+
+    .nav-search button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--purple);
+      font-size: 1rem;
+    }
+
+    /* ─── PAGE ─── */
+    .page { display: none; padding: 32px 40px; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── PROFILE HEADER ─── */
+    .profile-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #ccc;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar svg { width: 60px; height: 60px; fill: #555; }
+
+    .profile-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .profile-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 24px; }
+
+    .profile-meta span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .profile-meta span strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─── SCHEDULE TABLE ─── */
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .schedule-table th {
+      background: var(--purple);
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.1);
+      letter-spacing: 0.5px;
+    }
+
+    .schedule-table td {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+
+    .schedule-table tbody tr:nth-child(even) td { background: #faf8f2; }
+
+    .schedule-table .course-link {
+      color: var(--purple);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .schedule-table .course-link:hover { color: var(--gold); }
+
+    .schedule-table tfoot td {
+      background: var(--table-header-bg);
+      font-weight: 700;
+      color: var(--text);
+      border-top: 2px solid var(--border);
+    }
+
+    /* ─── REGISTRATION PAGE ─── */
+    .registration-card {
+      max-width: 520px;
+      margin: 20px auto;
+      background: #e9e2cc;
+      border-radius: 10px;
+      padding: 36px 40px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .reg-term-dropdown {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      width: 100%;
+      appearance: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .dropdown-wrapper {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .dropdown-wrapper select {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 48px 12px 24px;
+      font-size: 1rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      width: 100%;
+      appearance: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .dropdown-wrapper select option { background: #fff; color: #000; }
+
+    .dropdown-arrow {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--white);
+      pointer-events: none;
+      font-size: 1.1rem;
+    }
+
+    .reg-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .reg-btn {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+
+    .reg-btn:hover { background: #6a0dad; transform: translateY(-1px); }
+    .reg-btn:active { transform: translateY(0); }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--purple);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ─── FINANCIAL AID / ACCOUNTS PLACEHOLDER ─── */
+    .placeholder-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 48px;
+      text-align: center;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    .placeholder-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--purple);
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="pvamu-logo.png" class="logo-img">
+
+  <nav class="nav-links">
+    <a href="#" class="active" data-page="records">Student Records</a>
+    <a href="#" data-page="accounts">Student Accounts</a>
+    <a href="#" data-page="financial">Financial Aid</a>
+  </nav>
+
+  <div class="search-box">
+    <input type="text" placeholder="&#128269; Search..." id="searchInput">
+  </div>
+</header>
+<!-- ────────────────────────────────── STUDENT RECORDS PAGE ────────────────────────────────── -->
+<div class="page active" id="page-records">
+  <div class="profile-header">
+    <div class="avatar">
+      <!-- Silhouette SVG -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="38" rx="22" ry="26" fill="#444"/>
+        <rect x="20" y="62" width="60" height="38" rx="6" fill="#444"/>
+        <!-- Graduation cap -->
+        <polygon points="50,10 75,22 50,34 25,22" fill="#222"/>
+        <rect x="67" y="22" width="3" height="14" fill="#222"/>
+        <circle cx="70" cy="36" r="3" fill="#222"/>
+      </svg>
+    </div>
+    <div class="profile-info">
+      <h1>JOHN DOE</h1>
+      <div class="profile-meta">
+        <span>Sex: <strong>&nbsp;</strong></span>
+        <span>First Term Attended: <strong>&nbsp;</strong></span>
+        <span>Level: <strong>&nbsp;</strong></span>
+        <span>Current Term: <strong>&nbsp;</strong></span>
+        <span>Class: <strong>&nbsp;</strong></span>
+        <span>Degree Program: <strong>&nbsp;</strong></span>
+        <span>Concentration: <strong>&nbsp;</strong></span>
+        <span>Minor: <strong>&nbsp;</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>FALL – SEMESTER 1</th>
+        <th>HOURS</th>
+        <th>SPRING – SEMESTER 2</th>
+        <th>HOURS</th>
+      </tr>
+    </thead>
+    <tbody id="scheduleBody">
+      <!-- Populated by JS -->
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>TOTAL</td>
+        <td id="fall-total">0</td>
+        <td></td>
+        <td id="spring-total">0</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- ────────────────────────────────── STUDENT ACCOUNTS PAGE ────────────────────────────────── -->
+<div class="page" id="page-accounts">
+  <div class="profile-header">
+    <div class="avatar">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="38" rx="22" ry="26" fill="#444"/>
+        <rect x="20" y="62" width="60" height="38" rx="6" fill="#444"/>
+        <polygon points="50,10 75,22 50,34 25,22" fill="#222"/>
+        <rect x="67" y="22" width="3" height="14" fill="#222"/>
+        <circle cx="70" cy="36" r="3" fill="#222"/>
+      </svg>
+    </div>
+    <div class="profile-info">
+      <h1>JOHN DOE</h1>
+      <div class="profile-meta">
+        <span>Sex:</span><span>First Term Attended:</span>
+        <span>Level:</span><span>Current Term:</span>
+        <span>Class:</span><span>Degree Program:</span>
+        <span>Concentration:</span><span>Minor:</span>
+      </div>
+    </div>
+  </div>
+  <div class="placeholder-card">
+    <h2>Student Accounts</h2>
+    <p>Account balance and billing information will appear here.</p>
+  </div>
+</div>
+
+<!-- ────────────────────────────────── FINANCIAL AID PAGE ────────────────────────────────── -->
+
+  <div class="page" id="page-financial">
+  <div class="profile-header">
+    <div class="avatar">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="38" rx="22" ry="26" fill="#444"/>
+        <rect x="20" y="62" width="60" height="38" rx="6" fill="#444"/>
+        <polygon points="50,10 75,22 50,34 25,22" fill="#222"/>
+        <rect x="67" y="22" width="3" height="14" fill="#222"/>
+        <circle cx="70" cy="36" r="3" fill="#222"/>
+      </svg>
+    </div>
+    <div class="profile-info">
+      <h1>JOHN DOE</h1>
+      <div class="profile-meta">
+        <span>Sex:</span><span>First Term Attended:</span>
+        <span>Level:</span><span>Current Term:</span>
+        <span>Class:</span><span>Degree Program:</span>
+        <span>Concentration:</span><span>Minor:</span>
+      </div>
+    </div>
+  </div>
+  <div class="placeholder-card">
+    <h2>Financial Aid</h2>
+    <p>Financial Aid information will appear here.</p>
+  </div>
+</div>
+
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ─── DATA ───
+  const schedule = [
+    { fall: { code: "POST 2395", hours: 3 }, spring: { code: "HIST 1302", hours: 3 } },
+    { fall: { code: "COMP 3306", hours: 3 }, spring: { code: "COMP 3305", hours: 3 } },
+    { fall: { code: "COMP 3322", hours: 3 }, spring: { code: "COMP 3396", hours: 3 } },
+    { fall: { code: "MATH 3302", hours: 3 }, spring: { code: "GENERAL CS ELECTIVE", hours: 3 } },
+    { fall: { code: "MATH 3307", hours: 3 }, spring: { code: "CREATIVE ARTS CORE", hours: 3 } },
+  ];
+
+  // ─── BUILD TABLE ───
+  const tbody = document.getElementById("scheduleBody");
+  let fallTotal = 0, springTotal = 0;
+
+  schedule.forEach(row => {
+    const tr = document.createElement("tr");
+    const isLink = code => /^[A-Z]{2,4}\s\d{4}$/.test(code);
+
+    const makeCellContent = (course) => {
+      if (isLink(course.code)) {
+        return `<span class="course-link" onclick="showCourseInfo('${course.code}')">${course.code}</span>`;
+      }
+      return course.code;
+    };
+
+    tr.innerHTML = `
+      <td>${makeCellContent(row.fall)}</td>
+      <td>${row.fall.hours}</td>
+      <td>${makeCellContent(row.spring)}</td>
+      <td>${row.spring.hours}</td>
+    `;
+    tbody.appendChild(tr);
+
+    fallTotal += row.fall.hours;
+    springTotal += row.spring.hours;
+  });
+
+  document.getElementById("fall-total").textContent = fallTotal;
+  document.getElementById("spring-total").textContent = springTotal;
+
+  // ─── NAV ROUTING ───
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const pageId = link.dataset.page;
+
+      document.querySelectorAll(".nav-links a").forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(`page-${pageId}`).classList.add("active");
+    });
+  });
+
+  // ─── TOAST HELPER ───
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+
+  // ─── COURSE INFO ───
+  function showCourseInfo(code) {
+    showToast(`Loading details for ${code}…`);
+  }
+
+  // ─── REGISTRATION BUTTONS ───
+  document.getElementById("degreeBtn").addEventListener("click", () => {
+    const term = document.getElementById("regTermSelect").value;
+    if (!term) { showToast("Please select a Registration Term first."); return; }
+    showToast(`Degree Based Registration started for ${term}.`);
+  });
+
+  document.getElementById("personalBtn").addEventListener("click", () => {
+    const term = document.getElementById("regTermSelect").value;
+    if (!term) { showToast("Please select a Registration Term first."); return; }
+    showToast(`Personal Selection Registration started for ${term}.`);
+  });
+
+  // ─── SEARCH ───
+  document.getElementById("searchInput").addEventListener("click", () => {
+    const q = document.getElementById("searchInput").value.trim();
+    if (q) showToast(`Searching for: "${q}"`);
+  });
+
+  document.getElementById("searchInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      const q = e.target.value.trim();
+      if (q) showToast(`Searching for: "${q}"`);
+    }
+  });
+</script>
+</body>
+</html>

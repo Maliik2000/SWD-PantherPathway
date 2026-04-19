@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PVAM – Financial Aid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>header {
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+}
+
+.logo-img {
+  height: 40px;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+header nav a:hover,
+header nav a.active {
+  color: var(--white);
+}
+
+.search-box input {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+    :root {
+      --purple: #4b0082;
+      --gold: #c8a940;
+      --white: #ffffff;
+      --bg: #f5f2ec;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 64px;
+      gap: 0;
+    }
+
+    .nav-logo {
+      background: var(--gold);
+      color: var(--purple);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      margin-right: 28px;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      flex: 1;
+    }
+
+    .nav-links li { position: relative; }
+
+    .nav-links li:not(:last-child)::after {
+      content: '|';
+      color: var(--gold);
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-links a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 8px 20px;
+      display: block;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--white); }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      height: 34px;
+    }
+
+    .nav-search input {
+      border: none;
+      outline: none;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      width: 180px;
+      font-family: inherit;
+    }
+
+    .nav-search button {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--purple);
+      font-size: 1rem;
+    }
+
+    /* ─── PAGE ─── */
+    .page { padding: 32px 40px; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── PROFILE HEADER ─── */
+    .profile-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #ccc;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar svg { width: 60px; height: 60px; fill: #555; }
+
+    .profile-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .profile-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 24px; }
+
+    .profile-meta span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ─── REGISTRATION CARD ─── */
+    .registration-card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #e9e2cc;
+      border-radius: 10px;
+      padding: 36px 40px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .dropdown-wrapper {
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .dropdown-wrapper select {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 48px 12px 24px;
+      font-size: 1rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      width: 100%;
+      appearance: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .dropdown-wrapper select option { background: #fff; color: #000; }
+
+    .dropdown-arrow {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--white);
+      pointer-events: none;
+      font-size: 1.2rem;
+    }
+
+    .reg-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .reg-btn {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+
+    .reg-btn:hover { background: #6a0dad; transform: translateY(-1px); }
+    .reg-btn:active { transform: translateY(0); }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--purple);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <img src="pvamu-logo.png" class="logo-img">
+
+  <nav class="nav-links">
+    <a href="#">Student Records</a>
+    <a href="#">Student Accounts</a>
+    <a href="#" class="active">Financial Aid</a>
+  </nav>
+
+  <div class="search-box">
+    <input type="text" placeholder="&#128269; Search..." id="searchInput">
+  </div>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="avatar">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="38" rx="22" ry="26" fill="#444"/>
+        <rect x="20" y="62" width="60" height="38" rx="6" fill="#444"/>
+        <polygon points="50,10 75,22 50,34 25,22" fill="#222"/>
+        <rect x="67" y="22" width="3" height="14" fill="#222"/>
+        <circle cx="70" cy="36" r="3" fill="#222"/>
+      </svg>
+    </div>
+    <div class="profile-info">
+      <h1>JANE DOE</h1>
+      <div class="profile-meta">
+        <span>Sex:</span>
+        <span>First Term Attended:</span>
+        <span>Level:</span>
+        <span>Current Term:</span>
+        <span>Class:</span>
+        <span>Degree Program:</span>
+        <span>Concentration:</span>
+        <span>Minor:</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Card -->
+  <div class="registration-card">
+    <div class="dropdown-wrapper">
+      <select id="regTermSelect">
+        <option value="">Registration Term</option>
+        <option value="fall2025">Fall 2025</option>
+        <option value="spring2026">Spring 2026</option>
+        <option value="summer2026">Summer 2026</option>
+      </select>
+      <span class="dropdown-arrow">&#8964;</span>
+    </div>
+    <div class="reg-buttons">
+      <button class="reg-btn" id="degreeBtn">Degree Based Registration</button>
+      <button class="reg-btn" id="personalBtn">Personal Selection Registration</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+
+  document.getElementById("degreeBtn").addEventListener("click", () => {
+    const term = document.getElementById("regTermSelect").value;
+    if (!term) { showToast("Please select a Registration Term first."); return; }
+    showToast(`Degree Based Registration started for ${term}.`);
+  });
+
+  document.getElementById("personalBtn").addEventListener("click", () => {
+    const term = document.getElementById("regTermSelect").value;
+    if (!term) { showToast("Please select a Registration Term first."); return; }
+    showToast(`Personal Selection Registration started for ${term}.`);
+  });
+
+  document.getElementById("searchInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const q = e.target.value.trim();
+    if (q) showToast(`Searching for: "${q}"`);
+  }
+});
+  document.getElementById("searchInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      const q = e.target.value.trim();
+      if (q) showToast(`Searching for: "${q}"`);
+    }
+  });
+</script>
+</body>
+</html>

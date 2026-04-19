@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PVAMU - Student Records</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+.logo-img {
+  height: 40px;
+  margin-right: 20px;
+  object-fit: contain;
+}
+  :root {
+    --purple: #4b1f6f;
+    --gold: #c9a84c;
+    --gold-light: #e8d9a8;
+    --cream: #f5f0e8;
+    --tan: #d4c9a8;
+    --tan-dark: #b8a880;
+    --white: #ffffff;
+    --text-dark: #2a1a0a;
+    --text-mid: #5a4a2a;
+    --border: #9a8a6a;
+    --row-alt: #ede5d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #e8e0d0;
+    color: var(--text-dark);
+    font-size: 13px;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  header {
+    background: var(--purple);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 52px;
+    gap: 0;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .logo-box {
+    background: var(--gold);
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--purple);
+    line-height: 1;
+    margin-right: 20px;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+
+  .logo-box span { display: block; font-size: 10px; letter-spacing: 1px; font-weight: 600; }
+
+  nav { display: flex; gap: 0; }
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 18px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(201,168,76,0.4);
+    transition: background 0.15s;
+    letter-spacing: 0.3px;
+  }
+  nav a:hover, nav a.active { background: rgba(201,168,76,0.18); }
+
+  .search-box {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .search-box input {
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 13px;
+    width: 180px;
+    background: rgba(255,255,255,0.9);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ── TOP SECTION ── */
+  .top-row { display: flex; gap: 14px; }
+
+  /* STUDENT INFO CARD */
+  .student-card {
+    background: var(--cream);
+    border: 2px solid var(--purple);
+    border-radius: 4px;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    flex: 0 0 auto;
+    min-width: 260px;
+  }
+  .avatar-placeholder {
+    width: 80px;
+    height: 90px;
+    background: var(--tan);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .avatar-placeholder svg { opacity: 0.5; }
+
+  .student-info h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .info-row { display: flex; gap: 4px; margin-bottom: 2px; font-size: 11.5px; }
+  .info-label { color: var(--text-mid); font-weight: 600; min-width: 110px; }
+  .info-value { color: var(--text-dark); }
+
+  /* FILTER PANEL */
+  .filter-panel {
+    background: var(--cream);
+    border: 2px solid var(--purple);
+    border-radius: 4px;
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 30px;
+  }
+  .filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+  }
+  .filter-item input[type="checkbox"] {
+    accent-color: var(--purple);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+
+  /* SCHEDULE GRID PANEL */
+  .schedule-panel {
+    background: var(--cream);
+    border: 2px solid var(--purple);
+    border-radius: 4px;
+    flex: 0 0 220px;
+    overflow: hidden;
+  }
+
+  .schedule-panel table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+  }
+  .schedule-panel th {
+    background: var(--tan);
+    border: 1px solid var(--border);
+    padding: 4px 2px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-family: 'Crimson Pro', serif;
+  }
+  .schedule-panel td {
+    border: 1px solid var(--tan-dark);
+    padding: 3px;
+    height: 28px;
+    font-size: 9px;
+    vertical-align: top;
+  }
+  .schedule-panel td.filled {
+    background: rgba(75,31,111,0.12);
+    font-size: 8px;
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  /* ── COURSE TABLE ── */
+  .course-section {
+    background: var(--cream);
+    border: 2px solid var(--purple);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .course-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .course-table thead tr {
+    background: var(--tan);
+  }
+  .course-table th {
+    padding: 7px 6px;
+    text-align: center;
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .course-table tbody tr:nth-child(even) { background: var(--row-alt); }
+  .course-table tbody tr:nth-child(odd) { background: var(--cream); }
+  .course-table tbody tr:hover { background: rgba(201,168,76,0.25); }
+
+  .course-table td {
+    padding: 6px 5px;
+    border: 1px solid var(--tan-dark);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dark);
+    vertical-align: middle;
+  }
+  .course-table td.course-title { text-align: left; padding-left: 8px; }
+
+  .select-btn {
+    background: var(--purple);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 10.5px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .select-btn:hover { background: #6b2f9f; }
+
+  .select-btn.prereq-locked {
+    background: #6e6e6e;
+    color: #ccc;
+    cursor: not-allowed;
+    font-size: 9.5px;
+    line-height: 1.3;
+    pointer-events: none;
+    opacity: 0.75;
+  }
+
+  /* enrollment count styling */
+  .enroll-count {
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .enroll-low { color: #2a6e2a; }
+  .enroll-mid { color: #7a5a00; }
+  .enroll-high { color: #8b1a1a; }
+
+  /* day / time column distinction */
+  .col-day {
+    background-color: rgba(75,31,111,0.06);
+  }
+  .col-time {
+    background-color: rgba(201,168,76,0.10);
+  }
+  th.col-day { background-color: rgba(75,31,111,0.15); }
+  th.col-time { background-color: rgba(201,168,76,0.25); }
+
+  .badge-online {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+  }
+
+  .term-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-mid);
+  }
+
+  /* footer strip */
+  .footer-strip {
+    text-align: center;
+    color: var(--text-mid);
+    font-size: 11px;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+<img src="pvamu-logo.png" class="logo-img">  <nav>
+    <a href="#" class="active">Student Records</a>
+    <a href="#">Student Accounts</a>
+    <a href="#">Financial Aid</a>
+  </nav>
+  <div class="search-box">
+    <input type="text" placeholder="&#128269; Search...">
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- TOP ROW -->
+  <div class="top-row">
+
+    <!-- Student Info -->
+    <div class="student-card">
+      <div class="avatar-placeholder">
+        <!-- Silhouette SVG -->
+        <svg width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="30" cy="22" rx="14" ry="16" fill="#7a6a4a"/>
+          <path d="M8 78 C8 52 52 52 52 78 Z" fill="#7a6a4a"/>
+          <!-- Graduation cap -->
+          <rect x="16" y="8" width="28" height="4" rx="2" fill="#4b1f6f"/>
+          <polygon points="30,2 16,10 30,14 44,10" fill="#4b1f6f"/>
+          <line x1="44" y1="10" x2="47" y2="18" stroke="#c9a84c" stroke-width="1.5"/>
+          <circle cx="47" cy="19" r="2" fill="#c9a84c"/>
+        </svg>
+      </div>
+      <div class="student-info">
+        <h2>JOHN DOE</h2>
+        <div class="info-row"><span class="info-label">Sex:</span><span class="info-value">Male</span></div>
+        <div class="info-row"><span class="info-label">Level:</span><span class="info-value">Undergraduate</span></div>
+        <div class="info-row"><span class="info-label">Class:</span><span class="info-value">Sophmore</span></div>
+        <div class="info-row"><span class="info-label">First Term Attended:</span><span class="info-value">Fall 2025</span></div>
+        <div class="info-row"><span class="info-label">Current Term:</span><span class="info-value">Fall 2026</span></div>
+        <div class="info-row"><span class="info-label">Degree Program:</span><span class="info-value"></span></div>
+        <div class="info-row"><span class="info-label">Concentration:</span><span class="info-value"></span></div>
+        <div class="info-row"><span class="info-label">Minor:</span><span class="info-value"></span></div>
+      </div>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="filter-panel">
+      <div class="filter-grid">
+        <div>
+          <div class="filter-item"><input type="checkbox" id="async"><label for="async">Asynchronous</label></div>
+          <div class="filter-item"><input type="checkbox" id="sync"><label for="sync">Synchronous</label></div>
+          <div class="filter-item"><input type="checkbox" id="am"><label for="am">A.M.</label></div>
+          <div class="filter-item"><input type="checkbox" id="pm"><label for="pm">P.M.</label></div>
+        </div>
+        <div>
+          <div class="filter-item"><input type="checkbox" id="nofull"><label for="nofull">DO NOT SHOW FULL CLASSES</label></div>
+          <div class="filter-item"><input type="checkbox" id="mwf"><label for="mwf">M-W-F</label></div>
+          <div class="filter-item"><input type="checkbox" id="tuth"><label for="tuth">TU-THUR</label></div>
+          <div class="filter-item"><input type="checkbox" id="monfri"><label for="monfri">MON-FRI</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Schedule Grid -->
+    <div class="schedule-panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Mon</th><th>TUE</th><th>WED</th><th>THUR</th><th>FRI</th><th>SAT</th><th>SUN</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+<tr data-time="08:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="09:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="10:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="11:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="12:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="13:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="14:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="15:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr data-time="05:00"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+      </table>
+    </div>
+
+  </div><!-- end top-row -->
+<div style="padding:10px; font-weight:700; font-size:14px;">
+  Total Credits: <span id="creditCounter">0</span> / 18
+</div>
+
+  <!-- COURSE TABLE -->
+  <div class="course-section">
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th>TERM</th>
+          <th>CRN</th>
+          <th>COURSE TITLE</th>
+          <th>COURSE</th>
+          <th>CAMPUS</th>
+          <th class="col-day">DAY(S)</th>
+          <th class="col-time">TIME</th>
+          <th>TYPE</th>
+          <th>ENROLLED</th>
+          <th>SELECT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1: Online — enrollable -->
+        <tr data-course="POSC 2301" data-days="ONLINE" data-time="NA" data-credits="3">
+          <td><span class="term-label">FALL<br>2026</span></td>
+          <td>1124</td>
+          <td class="course-title">AMERICAN GOVERNMENT</td>
+          <td>POSC 2301</td>
+          <td>MAIN</td>
+          <td class="col-day">—</td>
+          <td class="col-time">N/A</td>
+          <td><span class="badge-online">ONLINE</span></td>
+          <td><span class="enroll-count enroll-low">18 / 35</span></td>
+          <td>
+  <button class="select-btn">ENROLL</button>
+  <button class="drop-btn" style="background:#8b1a1a; display:none;">DROP</button>
+</td>
+        </tr>
+        <!-- Row 2: M-W-F — enrollable -->
+        <tr data-course="POSC 2301" data-days="MWF" data-time="08:00-08:50" data-credits="3">
+          <td><span class="term-label">FALL<br>2026</span></td>
+          <td>5000</td>
+          <td class="course-title">AMERICAN GOVERNMENT</td>
+          <td>POSC 2301</td>
+          <td>MAIN</td>
+          <td class="col-day">M / W / F</td>
+          <td class="col-time">8:00 – 8:50 AM</td>
+          <td>LECTURE</td>
+          <td><span class="enroll-count enroll-mid">27 / 35</span></td>
+<td>
+  <button class="select-btn">ENROLL</button>
+  <button class="drop-btn" style="background:#8b1a1a; display:none;">DROP</button>
+</td>        </tr>
+        <!-- Row 3: TU-THUR — enrollable -->
+      <tr data-course="POSC 2301" data-days="TUTH" data-time="08:00-09:15" data-credits="3">
+          <td><span class="term-label">FALL<br>2026</span></td>
+          <td>2500</td>
+          <td class="course-title">AMERICAN GOVERNMENT</td>
+          <td>POSC 2301</td>
+          <td>MAIN</td>
+          <td class="col-day">TU / TH</td>
+          <td class="col-time">8:00 – 9:15 AM</td>
+          <td>LECTURE</td>
+          <td><span class="enroll-count enroll-low">12 / 35</span></td>
+<td>
+  <button class="select-btn">ENROLL</button>
+  <button class="drop-btn" style="background:#8b1a1a; display:none;">DROP</button>
+</td>        </tr>
+        <!-- Row 4: MON-FRI — LOCKED (prereq not met) -->
+       <tr data-course="POSC 2335" data-days="MWF" data-time="08:00-08:50" data-credits="3" style="opacity:0.72;">
+          <td><span class="term-label">FALL<br>2026</span></td>
+          <td>1354</td>
+          <td class="course-title">POLITICAL GOVERNMENT</td>
+          <td>POSC 2335</td>
+          <td>MAIN</td>
+          <td class="col-day">M–F</td>
+          <td class="col-time">8:00 – 8:50 AM</td>
+          <td>LECTURE</td>
+          <td><span class="enroll-count enroll-mid">22 / 35</span></td>
+          <td>
+            <button class="select-btn prereq-locked" disabled title="Prerequisite not met: POSC 1301 required">
+              PREREQ<br>NOT MET
+            </button>
+          </td>
+        </tr>
+        <!-- Row 5: TU-THUR PM — enrollable -->
+<tr data-course="POSC 2335" data-days="MWF" data-time="05:00-06:40" data-credits="3" style="opacity:0.72;">
+          <td><span class="term-label">FALL<br>2026</span></td>
+          <td>8741</td>
+          <td class="course-title">POLITICAL SCIENCE</td>
+          <td>POSC 2335</td>
+          <td>MAIN</td>
+          <td class="col-day">TU / TH</td>
+          <td class="col-time">5:00 – 6:40 PM</td>
+          <td>LECTURE</td>
+ <td><span class="enroll-count enroll-mid">34 / 35</span></td>
+
+          <td>
+            <button class="select-btn prereq-locked" disabled title="Prerequisite not met: POSC 1301 required">
+              PREREQ<br>NOT MET
+            </button>
+          </td>
+     
+ </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end page -->
+
+<div class="footer-strip">Prairie View A&amp;M University &mdash; Student Information System</div>
+
+<script>
+let enrolledCourses = [];
+localStorage.removeItem('courses');
+let totalCredits = 0;
+
+const filters = {
+  async: false,
+  sync: false,
+  am: false,
+  pm: false,
+  nofull: false,
+  mwf: false,
+  tuth: false,
+  monfri: false
+};
+
+const creditDisplay = document.getElementById('creditCounter');
+
+// load saved
+window.onload = () => {
+  enrolledCourses.forEach(c => totalCredits += c.credits);
+  updateUI();
+  applyFilters(); 
+};
+document.querySelectorAll('.filter-panel input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    filters[cb.id] = cb.checked;
+    applyFilters();
+  });
+});
+// highlight rows (keep your feature)
+const rows = document.querySelectorAll('.course-table tbody tr');
+rows.forEach(row => {
+  row.addEventListener('click', () => {
+    rows.forEach(r => r.style.outline = '');
+    row.style.outline = '2px solid #4b1f6f';
+  });
+});
+
+// ENROLL
+document.querySelectorAll('.select-btn:not(.prereq-locked)').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const row = btn.closest('tr');
+    const dropBtn = row.querySelector('.drop-btn');
+
+    const course = row.dataset.course;
+    const days = row.dataset.days;
+    const time = row.dataset.time;
+    const credits = parseInt(row.dataset.credits);
+
+    if (totalCredits + credits > 18) {
+      alert("Max 18 credits");
+      return;
+    }
+
+    if (hasConflict(days, time)) {
+      alert("Schedule conflict");
+      return;
+    }
+
+    enrolledCourses.push({ course, days, time, credits });
+    totalCredits += credits;
+
+    btn.style.display = "none";
+    dropBtn.style.display = "inline-block";
+
+    saveAndUpdate();
+  });
+});
+
+// DROP
+document.querySelectorAll('.drop-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const row = btn.closest('tr');
+    const enrollBtn = row.querySelector('.select-btn');
+
+    const course = row.dataset.course;
+    const time = row.dataset.time;
+
+    const exists = enrolledCourses.some(c => 
+      c.course === course && c.time === time
+    );
+
+    if (!exists) {
+      alert("You are not enrolled in this class");
+      return;
+    }
+
+    enrolledCourses = enrolledCourses.filter(c =>
+      !(c.course === course && c.time === time)
+    );
+
+    totalCredits = enrolledCourses.reduce((sum, c) => sum + c.credits, 0);
+
+    enrollBtn.style.display = "inline-block";
+    btn.style.display = "none"; // ⭐ ADD THIS
+
+    saveAndUpdate();
+  });
+});
+// SAVE + UPDATE
+function applyFilters() {
+  const rows = document.querySelectorAll('.course-table tbody tr');
+
+  rows.forEach(row => {
+    let show = true;
+
+    const days = row.dataset.days;
+    const time = row.dataset.time;
+    const isOnline = days === "ONLINE";
+    const enrolledText = row.querySelector('.enroll-count')?.textContent || "";
+
+    // FULL CLASS FILTER
+    if (filters.nofull && enrolledText.includes("35 / 35")) {
+      show = false;
+    }
+
+    // DAY FILTERS
+    if (filters.mwf && days !== "MWF") show = false;
+    if (filters.tuth && days !== "TUTH") show = false;
+    if (filters.monfri && days !== "MWF" && days !== "TUTH") show = false;
+
+    // ONLINE FILTERS
+    if (filters.async && !isOnline) show = false;
+    if (filters.sync && isOnline) show = false;
+
+    // AM / PM FILTER
+    if (filters.am || filters.pm) {
+      if (!isOnline) {
+        const hour = parseInt(time.split(':')[0]);
+
+        if (filters.am && hour >= 12) show = false;
+        if (filters.pm && hour < 12) show = false;
+      }
+    }
+
+    row.style.display = show ? "" : "none";
+  });
+}
+function saveAndUpdate() {
+  localStorage.setItem('courses', JSON.stringify(enrolledCourses));
+  updateUI();
+}
+
+// UPDATE UI
+function updateUI() {
+  creditDisplay.textContent = totalCredits;
+  updateSchedule();
+}
+
+// CONFLICT CHECK
+function hasConflict(days, time) {
+  if (days === "ONLINE") return false;
+
+  let [start, end] = time.split('-');
+
+  return enrolledCourses.some(c => {
+    if (c.days !== days || c.days === "ONLINE") return false;
+
+    let [cStart, cEnd] = c.time.split('-');
+
+    return !(end <= cStart || start >= cEnd);
+  });
+}
+
+// SCHEDULE GRID
+function updateSchedule() {
+  const rows = document.querySelectorAll('#scheduleBody tr');
+
+  rows.forEach(r => {
+    [...r.children].forEach(cell => {
+      cell.textContent = "";
+      cell.classList.remove('filled');
+    });
+  });
+
+  enrolledCourses.forEach(course => {
+    if (course.days === "ONLINE") return;
+
+    let dayMap = {
+      MWF: [0,2,4],
+      TUTH: [1,3]
+    };
+
+    let [start] = course.time.split('-');
+
+    rows.forEach(row => {
+      if (row.dataset.time === start) {
+        dayMap[course.days]?.forEach(day => {
+          let cell = row.children[day];
+          cell.textContent = course.course;
+          cell.classList.add('filled');
+        });
+      }
+    });
+  });
+}
+</script>
+
+</body>
+</html>
