@@ -1,35 +1,38 @@
-INSERT INTO sections (course_id, crn, term, days, time, type, enrolled, capacity) VALUES
-(1, 1001, 'Fall 2026', 'MWF', '08:00-08:50', 'LECTURE', 25, 35),
-(1, 1002, 'Fall 2026', 'TUTH', '09:30-10:45', 'LECTURE', 18, 35),
-(2, 1003, 'Fall 2026', 'MWF', '10:00-10:50', 'LECTURE', 30, 35),
-(2, 1004, 'Fall 2026', 'TUTH', '11:00-12:15', 'LECTURE', 12, 35),
-(3, 1005, 'Fall 2026', 'MWF', '12:00-12:50', 'LECTURE', 28, 35),
-(3, 1006, 'Fall 2026', 'TUTH', '01:00-02:15', 'LECTURE', 20, 35),
-(4, 1007, 'Fall 2026', 'MWF', '02:00-02:50', 'LECTURE', 33, 35),
-(4, 1008, 'Fall 2026', 'TUTH', '03:00-04:15', 'LECTURE', 15, 35),
-(1, 1009, 'Fall 2026', 'ONLINE', 'N/A', 'ONLINE', 10, 35),
-(2, 1010, 'Fall 2026', 'MWF', '05:00-05:50', 'LECTURE', 34, 35);
+USE pvamu_registration;
 
-INSERT INTO sections (course_id, crn, term, days, time, type, enrolled, capacity) VALUES
-(1, 2001, 'Spring 2027', 'MWF', '08:00-08:50', 'LECTURE', 22, 35),
-(1, 2002, 'Spring 2027', 'TUTH', '09:30-10:45', 'LECTURE', 19, 35),
-(2, 2003, 'Spring 2027', 'MWF', '10:00-10:50', 'LECTURE', 27, 35),
-(2, 2004, 'Spring 2027', 'TUTH', '11:00-12:15', 'LECTURE', 11, 35),
-(3, 2005, 'Spring 2027', 'MWF', '12:00-12:50', 'LECTURE', 29, 35),
-(3, 2006, 'Spring 2027', 'TUTH', '01:00-02:15', 'LECTURE', 21, 35),
-(4, 2007, 'Spring 2027', 'MWF', '02:00-02:50', 'LECTURE', 31, 35),
-(4, 2008, 'Spring 2027', 'TUTH', '03:00-04:15', 'LECTURE', 17, 35),
-(1, 2009, 'Spring 2027', 'ONLINE', 'N/A', 'ONLINE', 14, 35),
-(2, 2010, 'Spring 2027', 'MWF', '05:00-05:50', 'LECTURE', 35, 35);
+INSERT INTO section (section_id, course_id, semester, year, capacity, current_enrollment) VALUES
+-- FALL
+(1, 1, 'Fall', 2026, 35, 28),
+(2, 2, 'Fall', 2026, 35, 31),
+(3, 3, 'Fall', 2026, 35, 24),
+(4, 4, 'Fall', 2026, 35, 19),
+(5, 5, 'Fall', 2026, 35, 35),
+(6, 6, 'Fall', 2026, 35, 22),
+(7, 7, 'Fall', 2026, 35, 17),
+(8, 8, 'Fall', 2026, 35, 29),
+(9, 9, 'Fall', 2026, 35, 26),
+(10, 10, 'Fall', 2026, 35, 33),
 
-INSERT INTO sections (course_id, crn, term, days, time, type, enrolled, capacity) VALUES
-(1, 3001, 'Summer 2027', 'MWF', '08:00-10:00', 'LECTURE', 20, 30),
-(2, 3002, 'Summer 2027', 'TUTH', '10:30-12:30', 'LECTURE', 18, 30),
-(3, 3003, 'Summer 2027', 'MWF', '01:00-03:00', 'LECTURE', 25, 30),
-(4, 3004, 'Summer 2027', 'TUTH', '03:30-05:30', 'LECTURE', 22, 30),
-(1, 3005, 'Summer 2027', 'ONLINE', 'N/A', 'ONLINE', 12, 30),
-(2, 3006, 'Summer 2027', 'ONLINE', 'N/A', 'ONLINE', 15, 30),
-(3, 3007, 'Summer 2027', 'MWF', '09:00-11:00', 'LECTURE', 28, 30),
-(4, 3008, 'Summer 2027', 'TUTH', '12:00-02:00', 'LECTURE', 16, 30),
-(1, 3009, 'Summer 2027', 'MWF', '02:00-04:00', 'LECTURE', 19, 30),
-(2, 3010, 'Summer 2027', 'ONLINE', 'N/A', 'ONLINE', 10, 30);
+-- SPRING
+(11, 1, 'Spring', 2027, 35, 25),
+(12, 2, 'Spring', 2027, 35, 30),
+(13, 3, 'Spring', 2027, 35, 21),
+(14, 4, 'Spring', 2027, 35, 18),
+(15, 5, 'Spring', 2027, 35, 35),
+(16, 6, 'Spring', 2027, 35, 23),
+(17, 7, 'Spring', 2027, 35, 20),
+(18, 8, 'Spring', 2027, 35, 27),
+(19, 9, 'Spring', 2027, 35, 16),
+(20, 10, 'Spring', 2027, 35, 32),
+
+-- SUMMER
+(21, 1, 'Summer', 2027, 25, 14),
+(22, 2, 'Summer', 2027, 25, 19),
+(23, 3, 'Summer', 2027, 25, 17),
+(24, 4, 'Summer', 2027, 25, 12),
+(25, 5, 'Summer', 2027, 25, 25),
+(26, 6, 'Summer', 2027, 25, 15),
+(27, 7, 'Summer', 2027, 25, 10),
+(28, 8, 'Summer', 2027, 25, 21),
+(29, 9, 'Summer', 2027, 25, 13),
+(30, 10, 'Summer', 2027, 25, 18);
