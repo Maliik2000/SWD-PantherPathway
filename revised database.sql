@@ -275,7 +275,7 @@ INSERT INTO degree_plan_course VALUES
 (1,1,201,1,6),
 (2,1,202,1,4);
 
-NSERT INTO section (term_id, course_id, crn, campus, day_of_class, start_time, end_time, modality, capacity, enrollment_count) VALUES
+INSERT INTO section (term_id, course_id, crn, campus, day_of_class, start_time, end_time, modality, capacity, enrollment_count) VALUES
 
 -- =====================
 -- MWF (50 MIN CLASSES)
