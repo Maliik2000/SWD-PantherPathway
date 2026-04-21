@@ -253,7 +253,10 @@ INSERT INTO major VALUES
 
 INSERT INTO course VALUES
 (201,'COMP3395','Database Systems',3,'CS'),
-(202,'COMP2336','Data Structures',3,'CS');
+(202,'COMP2336','Data Structures',3,'CS'),
+(203,'COMP3305','Analysis of Algorithms',3,'CS'),
+(204,'COMP3306','Operating Systems',3,'CS'),
+(205,'COMP3322','Software Engineering',3,'CS');
 
 INSERT INTO degree_plan VALUES
 (1,1,'CS Plan');
@@ -269,7 +272,10 @@ INSERT INTO degree_plan_course VALUES
 
 INSERT INTO section VALUES
 (1,1,201,'5000','MAIN','MWF','08:00:00','08:50:00','In Person',35,27),
-(2,1,202,'2500','MAIN','TUTH','08:00:00','09:15:00','Synchronous',35,12);
+(2,1,202,'2500','MAIN','TUTH','08:00:00','09:15:00','Synchronous',35,12),
+(3,1,203,'3761','MAIN','TUTH','09:30:00','10:50:00','In Person',35,21),
+(4,1,204,'3198','MAIN','MWF','13:00:00','13:50:00','In Person',35,31),
+(4,1,205,'8163','MAIN','TUTH','15:30:00','16:50:00','In Person',35,19);
 
 INSERT INTO enrollment (student_id, section_id, status)
 VALUES
