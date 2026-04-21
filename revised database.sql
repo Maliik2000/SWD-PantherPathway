@@ -36,30 +36,6 @@ CREATE TABLE major (
     degree_type VARCHAR(10)
 );
 
-
--- =======================
--- STUDENT
--- TEXT -> VARCHAR + added profile fields
--- =======================
-CREATE TABLE student (
-    student_id INT PRIMARY KEY,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    email VARCHAR(100) UNIQUE,
-    classification VARCHAR(20),
-    major_id INT,
-    minor_id INT,
-    total_credits_completed INT DEFAULT 0,
-    graduation_month VARCHAR(15),
-    graduation_year INT,
-    first_term_id INT,
-    current_term_id INT,
-    sex char(1),
-    FOREIGN KEY (major_id) REFERENCES major(major_id),
-    FOREIGN KEY (minor_id) REFERENCES major(major_id)
-);
-
-
 -- =======================
 -- COURSE
 -- code for display, id for joins
@@ -83,6 +59,29 @@ CREATE TABLE degree_plan (
     FOREIGN KEY (major_id) REFERENCES major(major_id)
 );
 
+-- =======================
+-- STUDENT
+-- TEXT -> VARCHAR + added profile fields
+-- =======================
+CREATE TABLE student (
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    classification VARCHAR(20),
+    major_id INT,
+    minor_id INT,
+    total_credits_completed INT DEFAULT 0,
+    graduation_month VARCHAR(15),
+    graduation_year INT,
+    first_term_id INT,
+    current_term_id INT,
+    sex char(1),
+    degree_plan_id INT,
+    FOREIGN KEY (major_id) REFERENCES major(major_id),
+    FOREIGN KEY (minor_id) REFERENCES major(major_id),
+    FOREIGN KEY (degree_plan_id) REFERENCES degree_plan(degree_plan_id)
+);
 
 -- =======================
 -- DEGREE PLAN COURSE (NEW)
@@ -252,17 +251,17 @@ INSERT INTO major VALUES
 (1,'Computer Science',120,'BS'),
 (2,'Mathematics',120,'BS');
 
-INSERT INTO student VALUES
-(101,'India','Hoover','india@email.com','Senior',1,NULL,105,'May',2026,1,1,'F'),
-(102,'Sarah','Obeng','sarah@email.com','Junior',1,NULL,75,'May',2027,1,1,'F'),
-(103,'Isaac','Florence','isaac@email.com','Junior','1','2',80,'May',2027,3,8,'M');
-
 INSERT INTO course VALUES
 (201,'COMP3395','Database Systems',3,'CS'),
 (202,'COMP2336','Data Structures',3,'CS');
 
 INSERT INTO degree_plan VALUES
 (1,1,'CS Plan');
+
+INSERT INTO student VALUES
+(101,'India','Hoover','india@email.com','Senior',1,NULL,105,'May',2026,1,1,'F',1),
+(102,'Sarah','Obeng','sarah@email.com','Junior',1,NULL,75,'May',2027,1,1,'F',1),
+(103,'Isaac','Florence','isaac@email.com','Junior','1','2',80,'May',2027,3,8,'M',1);
 
 INSERT INTO degree_plan_course VALUES
 (1,1,201,1,6),
