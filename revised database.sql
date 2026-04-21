@@ -245,8 +245,8 @@ INSERT INTO major VALUES
 (2,'Mathematics',120,'BS');
 
 INSERT INTO student VALUES
-(101,'India','Hoover','india@email.com','Senior',1,105,'May',2026,1,1),
-(102,'Sarah','Obeng','sarah@email.com','Junior',1,75,'May',2027,1,1);
+(101,'India','Hoover','india@email.com','Senior',1,NULL,105,'May',2026,1,1,'F'),
+(102,'Sarah','Obeng','sarah@email.com','Junior',1,NULL,75,'May',2027,1,1'F');
 
 INSERT INTO course VALUES
 (201,'COMP3395','Database Systems',3,'CS'),
