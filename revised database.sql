@@ -48,12 +48,15 @@ CREATE TABLE student (
     email VARCHAR(100) UNIQUE,
     classification VARCHAR(20),
     major_id INT,
+    minor_id INT,
     total_credits_completed INT DEFAULT 0,
     graduation_month VARCHAR(15),
     graduation_year INT,
     first_term_id INT,
     current_term_id INT,
+    sex char(1),
     FOREIGN KEY (major_id) REFERENCES major(major_id)
+    FOREIGN KEY (minor_id) REFERENCES major(major_id)
 );
 
 
