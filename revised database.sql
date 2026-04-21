@@ -251,12 +251,17 @@ INSERT INTO major VALUES
 (1,'Computer Science',120,'BS'),
 (2,'Mathematics',120,'BS');
 
-INSERT INTO course VALUES
+INSERT INTO course (course_id, course_code, course_name, credit_hours, department) VALUES
 (201,'COMP3395','Database Systems',3,'CS'),
 (202,'COMP2336','Data Structures',3,'CS'),
-(203,'COMP3305','Analysis of Algorithms',3,'CS'),
-(204,'COMP3306','Operating Systems',3,'CS'),
-(205,'COMP3322','Software Engineering',3,'CS');
+(203,'COMP2315','Computer Organization',3,'CS'),
+(204,'COMP3305','Analysis of Algorithms',3,'CS'),
+(205,'COMP4310','Operating Systems',3,'CS'),
+(206,'COMP3310','Software Engineering',3,'CS'),
+(207,'MATH2413','Calculus I',4,'Math'),
+(208,'MATH2414','Calculus II',4,'Math'),
+(209,'STAT2317','Probability and Statistics',3,'Math'),
+(210,'COMP4320','Machine Learning',3,'CS');
 
 INSERT INTO degree_plan VALUES
 (1,1,'CS Plan');
@@ -270,12 +275,34 @@ INSERT INTO degree_plan_course VALUES
 (1,1,201,1,6),
 (2,1,202,1,4);
 
-INSERT INTO section VALUES
-(1,1,201,'5000','MAIN','MWF','08:00:00','08:50:00','In Person',35,27),
-(2,1,202,'2500','MAIN','TUTH','08:00:00','09:15:00','Synchronous',35,12),
-(3,1,203,'3761','MAIN','TUTH','09:30:00','10:50:00','In Person',35,21),
-(4,1,204,'3198','MAIN','MWF','13:00:00','13:50:00','In Person',35,31),
-(5,1,205,'8163','MAIN','TUTH','15:30:00','16:50:00','In Person',35,19);
+NSERT INTO section (term_id, course_id, crn, campus, day_of_class, start_time, end_time, modality, capacity, enrollment_count) VALUES
+
+-- =====================
+-- MWF (50 MIN CLASSES)
+-- =====================
+(9,201,'6001','MAIN','MWF','08:00:00','08:50:00','In Person',35,22),
+(9,202,'6002','MAIN','MWF','09:00:00','09:50:00','In Person',35,35),
+(9,203,'6003','MAIN','MWF','10:00:00','10:50:00','In Person',35,18),
+(9,204,'6004','MAIN','MWF','11:00:00','11:50:00','In Person',35,27),
+(9,205,'6005','MAIN','MWF','12:00:00','12:50:00','In Person',35,24),
+
+-- Afternoon MWF
+(9,206,'6006','MAIN','MWF','13:00:00','13:50:00','Synchronous',35,20),
+(9,207,'6007','MAIN','MWF','14:00:00','14:50:00','In Person',40,32),
+(9,208,'6008','MAIN','MWF','15:00:00','15:50:00','In Person',40,28),
+
+-- =====================
+-- TUTH (80 MIN CLASSES)
+-- =====================
+(9,201,'6101','MAIN','TUTH','08:00:00','09:20:00','In Person',35,25),
+(9,202,'6102','MAIN','TUTH','09:30:00','10:50:00','In Person',35,33),
+(9,203,'6103','MAIN','TUTH','11:00:00','12:20:00','Synchronous',35,19),
+(9,204,'6104','MAIN','TUTH','12:30:00','13:50:00','In Person',35,29),
+
+-- Afternoon TUTH
+(9,205,'6105','MAIN','TUTH','14:00:00','15:20:00','In Person',35,21),
+(9,206,'6106','MAIN','TUTH','15:30:00','16:50:00','Online',35,35),
+(9,210,'6107','MAIN','TUTH','17:00:00','18:20:00','In Person',35,26);
 
 INSERT INTO enrollment (student_id, section_id, status)
 VALUES
