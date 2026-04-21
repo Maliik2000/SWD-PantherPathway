@@ -238,6 +238,14 @@ DELIMITER ;
 -- =======================
 
 INSERT INTO academic_term (term_code, semester, calendar_year, display_name) VALUES
+('FALL2022','Fall',2022,'Fall 2022'),
+('SPRING2023','Spring',2023,'Spring 2023'),
+('FALL2023','Fall',2023,'Fall 2023'),
+('SPRING2024','Spring',2024,'Spring 2024'),
+('FALL2024','Fall',2024,'Fall 2024'),
+('SPRING2025','Spring',2025,'Spring 2025'),
+('FALL2025','Fall',2025,'Fall 2025'),
+('SPRING2026','Spring',2026,'Spring 2026'),
 ('FALL2026','Fall',2026,'Fall 2026');
 
 INSERT INTO major VALUES
@@ -246,7 +254,8 @@ INSERT INTO major VALUES
 
 INSERT INTO student VALUES
 (101,'India','Hoover','india@email.com','Senior',1,NULL,105,'May',2026,1,1,'F'),
-(102,'Sarah','Obeng','sarah@email.com','Junior',1,NULL,75,'May',2027,1,1,'F');
+(102,'Sarah','Obeng','sarah@email.com','Junior',1,NULL,75,'May',2027,1,1,'F'),
+(103,'Isaac','Florence','isaac@email.com','Junior','1','2',80,'May',2027,3,8,'M');
 
 INSERT INTO course VALUES
 (201,'COMP3395','Database Systems',3,'CS'),
