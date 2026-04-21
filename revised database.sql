@@ -275,7 +275,7 @@ INSERT INTO section VALUES
 (2,1,202,'2500','MAIN','TUTH','08:00:00','09:15:00','Synchronous',35,12),
 (3,1,203,'3761','MAIN','TUTH','09:30:00','10:50:00','In Person',35,21),
 (4,1,204,'3198','MAIN','MWF','13:00:00','13:50:00','In Person',35,31),
-(4,1,205,'8163','MAIN','TUTH','15:30:00','16:50:00','In Person',35,19);
+(5,1,205,'8163','MAIN','TUTH','15:30:00','16:50:00','In Person',35,19);
 
 INSERT INTO enrollment (student_id, section_id, status)
 VALUES
