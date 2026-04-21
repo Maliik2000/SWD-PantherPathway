@@ -55,7 +55,7 @@ CREATE TABLE student (
     first_term_id INT,
     current_term_id INT,
     sex char(1),
-    FOREIGN KEY (major_id) REFERENCES major(major_id)
+    FOREIGN KEY (major_id) REFERENCES major(major_id),
     FOREIGN KEY (minor_id) REFERENCES major(major_id)
 );
 
